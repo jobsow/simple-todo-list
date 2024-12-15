@@ -1,4 +1,13 @@
-const todoWrapper = document.querySelector('.todo__content')
+const SELECTORS = {
+    todoWrapper: '.todo__content',
+    getTodo: '#getTodo',
+    postTodo: '#postTodo',
+    todoItemWrapper: '.todo__wrapper',
+    todoText: '.todo__text--title',
+    emptyMessage: '.todo__text--subtitle'
+}
+
+const todoWrapper = document.querySelector(SELECTORS.todoWrapper)
 const getTodo = document.getElementById('getTodo')
 const postTodo = document.getElementById('postTodo')
 
@@ -38,19 +47,19 @@ function createTodoItem(todoText) {
     const createTodo = document.createElement('span')
     createTodo.textContent = todoText
     createTodo.classList.add('todo__item', 'todo__text', 'todo__text--title')
-    createTodoWrapper.append(createTodo)
 
     const createTodoBtn = document.createElement('button')
     createTodoBtn.textContent = 'Remove'
     createTodoBtn.classList.add('todo__item-btn')
-    createTodoWrapper.append(createTodoBtn)
+
+    createTodoWrapper.append(createTodo, createTodoBtn)
 
     return createTodoWrapper
 }
 
 function handleRemoveTodo(event) {
     if (event.target.classList.contains('todo__item-btn')) {
-        const todoItem = event.target.closest('.todo__wrapper')
+        const todoItem = event.target.closest(SELECTORS.todoItemWrapper)
         todoItem.remove()
         saveTodos()
         checkEmptyTodo()
@@ -58,8 +67,8 @@ function handleRemoveTodo(event) {
 }
 
 function checkEmptyTodo() {
-    const todoItems = todoWrapper.querySelectorAll('.todo__wrapper')
-    const emptyTodoCheck = todoWrapper.querySelector('.todo__text--subtitle')
+    const todoItems = todoWrapper.querySelectorAll(SELECTORS.todoItemWrapper)
+    const emptyTodoCheck = todoWrapper.querySelector(SELECTORS.emptyMessage)
 
     if (todoItems.length === 0 && !emptyTodoCheck) {
         const noTasksMessage = document.createElement('span')
@@ -72,7 +81,7 @@ function checkEmptyTodo() {
 }
 
 function saveTodos() {
-    const todoItems = todoWrapper.querySelectorAll('.todo__wrapper')
+    const todoItems = todoWrapper.querySelectorAll(SELECTORS.todoItemWrapper)
     const todos = Array.from(todoItems).map(item => {
         return item.querySelector('.todo__text--title').textContent
     })
@@ -80,14 +89,18 @@ function saveTodos() {
 }
 
 function loadTodos() {
-    const savedTodos = JSON.parse(localStorage.getItem('todos'))
+    try {
+        const savedTodos = JSON.parse(localStorage.getItem('todos')) || []
 
-    if (savedTodos && savedTodos.length > 0) {
-        savedTodos.forEach(todo => {
-            const createTodoWrapper = createTodoItem(todo)
-            todoWrapper.append(createTodoWrapper)
-        })
+        if (savedTodos.length > 0) {
+            savedTodos.forEach(todo => {
+                const createTodoWrapper = createTodoItem(todo)
+                todoWrapper.append(createTodoWrapper)
+            })
+        }
+
+        checkEmptyTodo()
+    } catch (error) {
+        console.error("Error loading todos from localStorage", error)
     }
-
-    checkEmptyTodo()
 }

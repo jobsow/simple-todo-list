@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+body {
+    font-family: "Manrope", serif;
+    background-color: #141519;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 16px 0;
+}
+
+.todo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin-top: 64px;
+}
+
+.todo__text {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.todo__text--main {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.todo__controls {
+    display: flex;
+    width: 500px;
+    gap: 8px;
+}
+
+.todo__input {
+    padding: 16px;
+    background-color: #474750;
+    border-radius: 6px;
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 20px;
+    width: 100%;
+}
+
+.todo__button {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 700;
+    padding: 0 20px;
+    border-radius: 6px;
+    background-color: #AB0D3C;
+    transition: transform 0.3s ease, background-color 50ms ease-in-out;
+}
+.todo__button:hover {
+    background-color: #81092d;
+    transform: translateY(-1px);
+}
+
+.todo__text--subtitle {
+    color: #ababb7;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+.todo__text--subtitle.margin {
+    margin-top: 20px;
+}
+
+.todo__text--title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.todo__content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.todo__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #474750;
+    border-radius: 6px;
+    padding: 16px;
+    gap: 16px;
+    width: 100%;
+}
+.todo__wrapper:nth-child(2n) {
+    border: none;
+}
+
+.todo__item-btn {
+    color: #000000;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background-color: #F7CB15;
+    transition: transform 0.3s ease, background-color 50ms ease-in-out;
+}
+.todo__item-btn:hover {
+    background-color: #c8a311;
+    transform: translateY(-1px);
+}
